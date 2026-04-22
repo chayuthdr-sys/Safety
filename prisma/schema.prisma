@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Registration {
+  id                      Int      @id @default(autoincrement())
+  companyName             String
+  coordinatorEmail        String
+  jobDetails              String
+  workPeriod              String
+  contractorNames         String   // Textarea
+  equipmentList           String
+  trainingDate            DateTime
+  workType                String
+
+  // Mandatory PDFs
+  idCardPdfPath           String
+  socialSecurityPdfPath   String
+
+  // Conditional PDFs (Crane Work)
+  craneDoc1Path           String?
+  craneCertPath           String?
+  cranePlanPath           String?
+
+  // Conditional PDFs (Confined Space)
+  confinedHealthCheckPath String?
+  confinedCertPath        String?
+
+  status                  String   @default("รอดำเนินการ") // รอดำเนินการ, อนุมัติ, ตีกลับ
+  rejectReason            String?
+
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
